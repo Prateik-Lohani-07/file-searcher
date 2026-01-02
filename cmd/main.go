@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"os"
+	"flag"
 )
 
+
 func main() {
-	args := os.Args[1:]
-	fmt.Println(args)
+	flag.Parse()
+	dir, _ := *Dir, *Query
+	searchDir(dir)
 }
