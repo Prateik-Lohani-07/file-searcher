@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 )
 
 func displayResults(results []*SearchResult) {
@@ -20,18 +19,9 @@ func displayResults(results []*SearchResult) {
 
 func displayQueryLocation(result *SearchResult) {
 	showLineNum := *ShowLineNum
-	showColNum := *ShowColNum
-
-	var toPrint string = "["
 
 	if showLineNum {
-		toPrint += strconv.Itoa(result.linNum)
-	} 
-	if showColNum {
-		toPrint += "," + strconv.Itoa(result.colNum)
+		var toPrint string = fmt.Sprintf("[%d,%d]:", result.linNum, result.colNum)
+		fmt.Print(toPrint)
 	}
-	
-	toPrint += "]:"
-
-	fmt.Print(toPrint)
 }
