@@ -4,7 +4,6 @@ import "path/filepath"
 
 var ignore = map[string]struct{}{
 	".git": {},
-	".env": {},
 }
 
 func toIgnore(path string) bool {
