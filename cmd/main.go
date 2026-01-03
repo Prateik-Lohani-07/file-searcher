@@ -1,12 +1,13 @@
 package main
 
 import (
+	// "fmt"
 	"flag"
 )
 
 
 func main() {
 	flag.Parse()
-	dir, _ := *Dir, *Query
-	searchDir(dir)
+	searchResults := searchDir()
+	displayResults(searchResults)
 }
