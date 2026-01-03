@@ -1,1 +1,1 @@
-go build -o search ./cmd
+go build -o filesearch.exe ./cmd
