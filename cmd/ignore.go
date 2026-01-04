@@ -5,6 +5,11 @@ import "path/filepath"
 var ignore = map[string]struct{}{
 	".git": {},
 	".exe": {},
+	".jpeg": {},
+	".jpg": {},
+	".png": {},
+	".mp4": {},
+	".mkv": {},
 }
 
 func toIgnore(path string) bool {
