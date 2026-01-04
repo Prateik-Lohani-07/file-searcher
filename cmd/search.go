@@ -11,16 +11,21 @@ import (
 )
 
 
-func searchDir() []*SearchResult {
+func searchDir() ([]*SearchResult, error) {
 	dir := *Dir
 	var results = []*SearchResult{}
 
 	walkFn := func (path string, info fs.FileInfo, err error) error {
 		if err != nil {
-			return err
+			if info != nil && info.IsDir() {
+				return filepath.SkipDir
+			}
+			return nil
 		}
 
-		if toIgnore(info.Name()) {
+		ignore := toIgnore(info.Name())
+		
+		if ignore {
 			if info.IsDir() {
 				return filepath.SkipDir
 			}
@@ -39,10 +44,10 @@ func searchDir() []*SearchResult {
 	}
 	
 	if err := filepath.Walk(dir, walkFn); err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
-	return results
+	return results, nil
 }
 
 func searchQueryFound(path string) (int, int, string, error) {
@@ -70,7 +75,7 @@ func searchQueryFound(path string) (int, int, string, error) {
 	}
 
 	if err := scanner.Err(); err != nil {
-        log.Fatalf("error reading file: %s", err)
+        return -1, -1, "", err
     }
 	
 	if colNum == -1 {

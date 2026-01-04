@@ -23,9 +23,6 @@ func toIgnore(path string) bool {
 	fileExtension := filepath.Ext(path)
 	_, extToIgnore := ignore[fileExtension]
 
-	// ignore the file if it has no extension at all
-	extToIgnore = extToIgnore || (fileExtension == "")
-
 	toIgnore = toIgnore || exists || extToIgnore
 	return toIgnore
 }
