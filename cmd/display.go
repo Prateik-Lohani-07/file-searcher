@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/fatih/color"
 )
 
 func displayResults(results []*SearchResult) {
@@ -10,10 +12,20 @@ func displayResults(results []*SearchResult) {
 		return
 	}
 
+	queryLen := len(*Query)
+
 	for _, result := range results {
 		displayQueryLocation(result)
 
-		fmt.Printf("%s:\t%s\n", result.path, result.lineContent)
+		// getting content and surrounding indices of query for highlighting
+		content := result.lineContent
+		start, end := result.colNum-1, result.colNum-1 + queryLen
+
+		// getting the various parts of string to highlight the query only
+		before, highlightedQuery, after := content[:start], content[start:end], content[end:]
+
+		var display string = before + color.RedString(highlightedQuery) + after
+		fmt.Printf("%s:\t%s\n", result.path, display)
 	}
 }
 
@@ -22,6 +34,6 @@ func displayQueryLocation(result *SearchResult) {
 
 	if showLineNum {
 		var toPrint string = fmt.Sprintf("[%d,%d]:", result.linNum, result.colNum)
-		fmt.Print(toPrint)
+		fmt.Print(color.YellowString(toPrint))
 	}
 }
