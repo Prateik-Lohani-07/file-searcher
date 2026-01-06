@@ -2,14 +2,14 @@ package main
 
 import "path/filepath"
 
-var ignore = map[string]struct{}{
-	".git": {},
-	".exe": {},
-	".jpeg": {},
-	".jpg": {},
-	".png": {},
-	".mp4": {},
-	".mkv": {},
+var ignore = map[string]bool{
+	".git": true,
+	".exe": true,
+	".jpeg": true,
+	".jpg": true,
+	".png": true,
+	".mp4": true,
+	".mkv": true,
 }
 
 func toIgnore(path string) bool {
@@ -17,7 +17,7 @@ func toIgnore(path string) bool {
 
 	// ignore if base path to be ignored
 	base := filepath.Base(path)
-	_, exists := ignore[base]
+	exists := ignore[base]
 	
 	// ignore if kind of file is to be ignored
 	fileExtension := filepath.Ext(path)
