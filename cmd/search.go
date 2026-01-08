@@ -37,7 +37,6 @@ func searchPath(path string) ([]*SearchResult, error) {
 
 		// only read if it's a file
 		if info.Mode().IsDir() {
-			fmt.Printf("filesearch: %s is a directory\n", path)
 			return nil
 		} 
 		
@@ -65,7 +64,11 @@ func searchPath(path string) ([]*SearchResult, error) {
 		}
 	} else {
 		info, err := os.Stat(path)
-		processFileFn(path, info, err)
+		err = processFileFn(path, info, err)
+
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return results, nil
