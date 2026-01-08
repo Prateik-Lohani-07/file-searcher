@@ -53,18 +53,17 @@ filesearch --dir "<directory>" --query "<keyword>" [flags]
 
 ### Flags
 
-- `--dir`: Specifies the directory in which search operation is to be performed.
-- `--query`: Specifies the keyword that is to be searched for in the search directory.
-- `--n`: Whether to show the line and column numbers where the query occurs in the file.
+- `-r`: Specifies whether recursive directory search is to be performed.
+- `-n`: Whether to show the line and column numbers where the query occurs in the file.
 
 ## Example
 
 ```shell
-filesearch --dir . --query "restaurant"
+filesearch restaurant test-*.txt
 ```
 
 Output:
 
 ```shell
-[1,28]:Restaurant and ML.txt:   Taking all the data of the restaurants in my area,
+[1,28]:test-4.txt:   Taking all the data of the restaurants in my area,
 ```
