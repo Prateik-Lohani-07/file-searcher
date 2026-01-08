@@ -1,8 +1,6 @@
 package main
 
 import (
-	"errors"
-	"fmt"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -35,27 +33,20 @@ func searchPath(path string) ([]*SearchResult, error) {
 			return nil
 		}
 
-		// only read if it's a file
-		if info.Mode().IsDir() {
-			return nil
-		} 
-		
 		ignore := toIgnore(info.Name())
-		if ignore {
-			return nil
-		}
-
-		if info.Mode().IsRegular() {
-
-			if lin, col, content, err := searchQueryFound(path); err == nil {
-				results = append(results, &SearchResult{lin, col, path, content})
+		if info.Mode().IsDir() || ignore || !info.Mode().IsRegular() {
+			if ignore {
+				return filepath.SkipDir
 			}
 
 			return nil
-		} 
+		}
+		
+		if lin, col, content, err := searchQueryFound(path); err == nil {
+			results = append(results, &SearchResult{lin, col, path, content})
+		}
 
-		errMsg := fmt.Sprintf("not a regular file: %s", path)
-		return errors.New(errMsg)
+		return nil
 	}
 
 	if *RecursiveSearch {
