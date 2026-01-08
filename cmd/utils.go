@@ -9,6 +9,12 @@ import (
 
 func parseArgs() (string, []string) {
 	flag.Parse()
+
+	if (*Help) {
+		displayHelp()
+		os.Exit(0)
+	}
+
 	args := flag.Args()
 
 	if len(args) < 2 {
