@@ -12,7 +12,7 @@ func displayResults(results []*SearchResult) {
 		return
 	}
 
-	queryLen := len(*Query)
+	queryLen := len(Query)
 
 	for _, result := range results {
 		displayQueryLocation(result)
@@ -25,7 +25,7 @@ func displayResults(results []*SearchResult) {
 		before, highlightedQuery, after := content[:start], content[start:end], content[end:]
 
 		var display string = before + color.RedString(highlightedQuery) + after
-		fmt.Printf("%s:\t%s\n", result.path, display)
+		fmt.Printf("%s: %s\n", result.path, display)
 	}
 }
 
