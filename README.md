@@ -67,6 +67,6 @@ filesearch restaurant test-*.txt
 
 Output:
 
-```shell
+```
 [1,28]:test-4.txt:   Taking all the data of the restaurants in my area,
 ```
