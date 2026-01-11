@@ -18,7 +18,7 @@ Options:
   -n                 Show the line and column numbers where the query occurs in the file
   -fz				 Perform fuzzy search
   -w				 Search for words (whitespace separated)
-  --help             Show this help message
+  -help              Show this help message
 
 Examples:
   filesearch -w noOfRequests src/**/*.js
