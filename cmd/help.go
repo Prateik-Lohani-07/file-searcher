@@ -16,12 +16,16 @@ Positional arguments:
 Options:
   -r                 Enable recursive search through subdirectories (default: false)
   -n                 Show the line and column numbers where the query occurs in the file
+  -fz				 Perform fuzzy search
+  -w				 Search for words (whitespace separated)
   --help             Show this help message
 
 Examples:
+  filesearch -w noOfRequests src/**/*.js
   filesearch -r func *.go
   filesearch -n TODO .
   filesearch -r -n error *.txt
+  filesearch -fz cat drive/*
 
 Notes:
 - Ignored directories and files (e.g., .git, .env) are skipped automatically.

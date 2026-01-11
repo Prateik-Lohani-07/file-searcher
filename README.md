@@ -55,6 +55,9 @@ filesearch --dir "<directory>" --query "<keyword>" [flags]
 
 - `-r`: Specifies whether recursive directory search is to be performed.
 - `-n`: Whether to show the line and column numbers where the query occurs in the file.
+- `-fz`: Whether to do fuzzy search (NOTE: gives word search only).
+- `-w`: Whether to search for words rather than regular string matching
+- `-help`: Show the various flags, their meaning, and their usage.
 
 ## Example
 
