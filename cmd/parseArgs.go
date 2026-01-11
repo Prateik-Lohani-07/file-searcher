@@ -1,25 +1,24 @@
 package main
 
 import (
-	"path/filepath"
+	"errors"
 	"flag"
-	"log"
-	"os"
+	"fmt"
+	"path/filepath"
 )
 
-func parseArgs() (string, []string) {
+func parseArgs() (string, []string, error)  {
 	flag.Parse()
 
 	if (*Help) {
 		displayHelp()
-		os.Exit(0)
+		return "", nil, nil
 	}
 
 	args := flag.Args()
 
 	if len(args) < 2 {
-		log.Fatal("Must pass in at least 2 args (query and file pattern)")
-		os.Exit(1)
+		return "", nil, errors.New("must pass in at least 2 args (query and file pattern)")
 	}
 
 	query, glob := args[0], args[1:]
@@ -29,14 +28,14 @@ func parseArgs() (string, []string) {
 		expandedGlob, err := expandGlob(g)
 
 		if err != nil {
-			log.Fatalf("Error while parsing glob pattern: %v", err)
-			os.Exit(1)
+			errMsg := fmt.Sprintf("error while parsing glob pattern: %v", err)
+			return "", nil, errors.New(errMsg)
 		}
 
 		paths = append(paths, expandedGlob...)
 	}
 
-	return query, paths
+	return query, paths, nil
 }
 
 func expandGlob(glob string) ([]string, error) {
