@@ -18,8 +18,10 @@ func main() {
 	Query = q
 	
 	results, err := searchAllPaths(paths)
+
 	if err != nil {
 		log.Fatalf("Failed to search for files: %v", err)
+		os.Exit(1)
 	}
 
 	displayResults(results)
