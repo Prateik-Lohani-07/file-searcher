@@ -11,7 +11,7 @@ import (
 	"github.com/sahilm/fuzzy"
 )
 
-func searchQueryFound(path string) ([]*SearchResult, error) {
+func searchQueryFound(path string) ([]SearchResult, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		log.Fatalf("failed to open file %s: %v", path, err)
@@ -30,7 +30,7 @@ func searchQueryFound(path string) ([]*SearchResult, error) {
 	return fileResults, nil
 }
 
-func search(path string, lines []string, query string) []*SearchResult {
+func search(path string, lines []string, query string) []SearchResult {
 	f := *Fuzzy
 	
 	if f {
@@ -40,7 +40,7 @@ func search(path string, lines []string, query string) []*SearchResult {
 	}
 }
 
-func fuzzySearch(path string, lines []string, query string) []*SearchResult {
+func fuzzySearch(path string, lines []string, query string) []SearchResult {
 	matches := fuzzy.Find(query, lines)
 
 	maxAbs := math.MinInt
@@ -53,7 +53,7 @@ func fuzzySearch(path string, lines []string, query string) []*SearchResult {
 	}
 
 	// normalizing the results scores and adding ones with score greater than 0 -> TODO: experiment with this
-	results := []*SearchResult{}
+	results := []SearchResult{}
 
 	for idx, m := range matches {
 		normalizedScore := (float64(m.Score) - float64(minVal)) / float64(maxAbs)
@@ -62,7 +62,7 @@ func fuzzySearch(path string, lines []string, query string) []*SearchResult {
 			break
 		}
 
-		results = append(results, &SearchResult{
+		results = append(results, SearchResult{
 			linNum: idx,
 			colNum: m.MatchedIndexes[0], // NOTE: matched indexes gives 1-indexed col number
 			path: path,
@@ -73,14 +73,14 @@ func fuzzySearch(path string, lines []string, query string) []*SearchResult {
 	return results
 }
 
-func strictMatch(path string, lines []string, query string) []*SearchResult {
-	results := []*SearchResult{}
+func strictMatch(path string, lines []string, query string) []SearchResult {
+	results := []SearchResult{}
 	w := *Word
 
 	for idx, line := range lines {
 		if !w {
 			if colNum := strings.Index(line, Query); colNum != -1 {
-				results = append(results, &SearchResult{
+				results = append(results, SearchResult{
 					linNum: idx,
 					colNum: colNum, // NOTE: matched indexes gives 1-indexed col number
 					path: path,
@@ -93,7 +93,7 @@ func strictMatch(path string, lines []string, query string) []*SearchResult {
 			words := strings.Split(line, " ")
 
 			if idx := slices.Index(words, query); idx != -1 {
-				results = append(results, &SearchResult{
+				results = append(results, SearchResult{
 					linNum: idx,
 					colNum: getWordColNum(idx, words), // NOTE: matched indexes gives 1-indexed col number
 					path: path,

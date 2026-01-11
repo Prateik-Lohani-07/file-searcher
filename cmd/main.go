@@ -1,16 +1,21 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"os"
 )
 
 var Query string
-var _ = fmt.Print
 
 func main() {
-	var paths []string
-	Query, paths = parseArgs()
+	q, paths, err := parseArgs()
+	
+	if err != nil {
+		log.Fatal(err)
+		os.Exit(1)
+	}
+
+	Query = q
 	
 	results, err := searchAllPaths(paths)
 	if err != nil {

@@ -6,7 +6,7 @@ import (
 	"github.com/fatih/color"
 )
 
-func displayResults(results []*SearchResult) {
+func displayResults(results []SearchResult) {
 	if len(results) == 0 {
 		fmt.Printf("No results found!")
 		return
@@ -29,7 +29,7 @@ func displayResults(results []*SearchResult) {
 	}
 }
 
-func displayQueryLocation(result *SearchResult) {
+func displayQueryLocation(result SearchResult) {
 	showLineNum := *ShowLineNum
 
 	if showLineNum {

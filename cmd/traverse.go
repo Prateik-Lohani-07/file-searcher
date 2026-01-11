@@ -7,8 +7,8 @@ import (
 )
 
 
-func searchAllPaths(paths []string) ([]*SearchResult, error) {
-	var allResults = []*SearchResult{}
+func searchAllPaths(paths []string) ([]SearchResult, error) {
+	var allResults = []SearchResult{}
 	
 	for _, path := range paths {
 		pathResults, err := searchPath(path)
@@ -22,8 +22,8 @@ func searchAllPaths(paths []string) ([]*SearchResult, error) {
 	return allResults, nil
 }
 
-func searchPath(path string) ([]*SearchResult, error) {
-	var results = []*SearchResult{}
+func searchPath(path string) ([]SearchResult, error) {
+	var results = []SearchResult{}
 
 	processFileFn := func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
