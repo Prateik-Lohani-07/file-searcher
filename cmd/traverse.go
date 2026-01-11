@@ -42,8 +42,9 @@ func searchPath(path string) ([]*SearchResult, error) {
 			return nil
 		}
 		
-		if lin, col, content, err := searchQueryFound(path); err == nil {
-			results = append(results, &SearchResult{lin, col, path, content})
+		r, err := searchQueryFound(path)
+		if err == nil {
+			results = append(results, r...)
 		}
 
 		return nil

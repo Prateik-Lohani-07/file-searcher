@@ -19,7 +19,7 @@ func displayResults(results []*SearchResult) {
 
 		// getting content and surrounding indices of query for highlighting
 		content := result.lineContent
-		start, end := result.colNum-1, result.colNum-1 + queryLen
+		start, end := result.colNum, result.colNum + queryLen
 
 		// getting the various parts of string to highlight the query only
 		before, highlightedQuery, after := content[:start], content[start:end], content[end:]
