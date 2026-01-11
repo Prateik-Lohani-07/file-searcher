@@ -1,14 +1,18 @@
-package main
+package search
 
 import (
 	"io/fs"
 	"os"
 	"path/filepath"
+
+	"filesearch/internal/cli"
 )
 
+var Query string
 
-func searchAllPaths(paths []string) ([]SearchResult, error) {
+func SearchAllPaths(query string, paths []string) ([]SearchResult, error) {
 	var allResults = []SearchResult{}
+	Query = query
 	
 	for _, path := range paths {
 		pathResults, err := searchPath(path)
@@ -50,7 +54,7 @@ func searchPath(path string) ([]SearchResult, error) {
 		return nil
 	}
 
-	if *RecursiveSearch {
+	if *cli.RecursiveSearch {
 		if err := filepath.Walk(path, processFileFn); err != nil {
 			return nil, err
 		}

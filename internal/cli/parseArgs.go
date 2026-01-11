@@ -1,4 +1,4 @@
-package main
+package cli
 
 import (
 	"errors"
@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 )
 
-func parseArgs() (string, []string, error)  {
+func ParseArgs() (string, []string, error)  {
 	flag.Parse()
 
 	if (*Help) {

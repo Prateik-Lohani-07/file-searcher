@@ -3,26 +3,25 @@ package main
 import (
 	"log"
 	"os"
+
+	"filesearch/internal/search"
+	"filesearch/internal/cli"
 )
 
-var Query string
-
 func main() {
-	q, paths, err := parseArgs()
+	query, paths, err := cli.ParseArgs()
 	
 	if err != nil {
 		log.Fatal(err)
 		os.Exit(1)
 	}
 
-	Query = q
-	
-	results, err := searchAllPaths(paths)
+	results, err := search.SearchAllPaths(query, paths)
 
 	if err != nil {
 		log.Fatalf("Failed to search for files: %v", err)
 		os.Exit(1)
 	}
 
-	displayResults(results)
+	cli.DisplayResults(query, results)
 }
