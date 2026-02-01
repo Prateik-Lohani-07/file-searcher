@@ -13,7 +13,7 @@ var Query string
 func SearchAllPaths(query string, paths []string) ([]SearchResult, error) {
 	var allResults = []SearchResult{}
 	Query = query
-	
+
 	for _, path := range paths {
 		pathResults, err := searchPath(path)
 		if err != nil {
@@ -45,8 +45,8 @@ func searchPath(path string) ([]SearchResult, error) {
 
 			return nil
 		}
-		
-		r, err := searchQueryFound(path)
+
+		r, err := findQueryInFile(path)
 		if err == nil {
 			results = append(results, r...)
 		}
@@ -69,4 +69,3 @@ func searchPath(path string) ([]SearchResult, error) {
 
 	return results, nil
 }
-

@@ -16,8 +16,7 @@ import (
 
 type SearchResult = models.SearchResult
 
-
-func searchQueryFound(path string) ([]SearchResult, error) {
+func findQueryInFile(path string) ([]SearchResult, error) {
 	file, err := os.Open(path)
 	if err != nil {
 		log.Fatalf("failed to open file %s: %v", path, err)
@@ -27,18 +26,18 @@ func searchQueryFound(path string) ([]SearchResult, error) {
 
 	scanner := bufio.NewScanner(file)
 	lines := []string{}
-	
+
 	for scanner.Scan() {
 		lines = append(lines, scanner.Text())
 	}
-	
-	fileResults := search(path, lines, Query);
+
+	fileResults := search(path, lines, Query)
 	return fileResults, nil
 }
 
 func search(path string, lines []string, query string) []SearchResult {
 	f := *cli.Fuzzy
-	
+
 	if f {
 		return fuzzySearch(path, lines, query)
 	} else {
@@ -69,9 +68,9 @@ func fuzzySearch(path string, lines []string, query string) []SearchResult {
 		}
 
 		results = append(results, SearchResult{
-			LinNum: idx,
-			ColNum: m.MatchedIndexes[0], // NOTE: matched indexes gives 1-indexed col number
-			Path: path,
+			LinNum:      idx,
+			ColNum:      m.MatchedIndexes[0], // NOTE: matched indexes gives 1-indexed col number
+			Path:        path,
 			LineContent: m.Str,
 		})
 	}
@@ -87,9 +86,9 @@ func strictMatch(path string, lines []string, query string) []SearchResult {
 		if !w {
 			if colNum := strings.Index(line, Query); colNum != -1 {
 				results = append(results, SearchResult{
-					LinNum: idx,
-					ColNum: colNum, // NOTE: matched indexes gives 1-indexed col number
-					Path: path,
+					LinNum:      idx,
+					ColNum:      colNum, // NOTE: matched indexes gives 1-indexed col number
+					Path:        path,
 					LineContent: line,
 				})
 			}
@@ -100,9 +99,9 @@ func strictMatch(path string, lines []string, query string) []SearchResult {
 
 			if idx := slices.Index(words, query); idx != -1 {
 				results = append(results, SearchResult{
-					LinNum: idx,
-					ColNum: getWordColNum(idx, words), // NOTE: matched indexes gives 1-indexed col number
-					Path: path,
+					LinNum:      idx,
+					ColNum:      getWordColNum(idx, words), // NOTE: matched indexes gives 1-indexed col number
+					Path:        path,
 					LineContent: line,
 				})
 			}
@@ -115,7 +114,7 @@ func strictMatch(path string, lines []string, query string) []SearchResult {
 // this function assumes that the word has indeed been found and that idxInWordSlice != -1
 func getWordColNum(idxInWordSlice int, words []string) int {
 	before := words[:idxInWordSlice]
-	
+
 	colNum := 0
 	for _, w := range before {
 		colNum += len(w) + 1 // 1 for the whitespace
