@@ -29,7 +29,7 @@ On Windows, you may also move it to C drive in a separate folder with any other 
 
 ```shell
 # linux
-mv filesearch.exe /usr/local/bin
+mv scout.exe /usr/local/bin
 ```
 
 ```cmd
