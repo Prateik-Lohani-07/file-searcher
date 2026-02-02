@@ -19,7 +19,7 @@ chmod +x ./build.sh
 ./build.sh
 ```
 
-Now you will have an executable `filesearch.exe` in the folder.
+Now you will have an executable `scout.exe` in the folder.
 
 3. **Add the output executable to your system path.**
 
@@ -34,21 +34,21 @@ mv filesearch.exe /usr/local/bin
 
 ```cmd
 mkdir C:\cli-tools
-move filesearch.exe C:\cli-tools\
+move scout.exe C:\cli-tools\
 ```
 
 ```powershell
 # powershell
 New-Item -ItemType Directory C:\cli-tools -Force
-Move-Item filesearch.exe C:\cli-tools\
+Move-Item scout.exe C:\cli-tools\
 ```
 
-Now you can use the `filesearch` command as shown in the next section.
+Now you can use the `scout` command as shown in the next section.
 
 ## Usage
 
 ```bash
-filesearch --dir "<directory>" --query "<keyword>" [flags]
+scout --dir "<directory>" --query "<keyword>" [flags]
 ```
 
 ### Flags
@@ -62,7 +62,7 @@ filesearch --dir "<directory>" --query "<keyword>" [flags]
 ## Example
 
 ```shell
-filesearch restaurant test-*.txt
+scout restaurant test-*.txt
 ```
 
 Output:
