@@ -5,6 +5,7 @@ import (
 )
 
 var ignore = map[string]bool{
+	"node_modules": true,
 	".git": true,
 	".exe": true,
 	".jpeg": true,
