@@ -8,18 +8,18 @@ A CLI-based tool that imitates basic `grep` functionality. Simple, powerful, mad
 
 1. **Clone the repository**
 
-```shell
-git clone https://github.com/Prateik-Lohani-07/file-searcher.git
-```
+    ```shell
+    git clone https://github.com/Prateik-Lohani-07/file-searcher.git
+    ```
 
 2. **Run the build script**
 
-```shell
-chmod +x ./build.sh
-./build.sh
-```
+    ```shell
+    chmod +x ./build.sh
+    ./build.sh
+    ```
 
-Now you will have an executable `scout.exe` in the folder.
+    Now you will have an executable `scout.exe` in the folder.
 
 3. **Add the output executable to your system path.**
 
@@ -67,6 +67,6 @@ scout restaurant test-*.txt
 
 Output:
 
-```
+```shell
 [1,28]:test-4.txt:   Taking all the data of the restaurants in my area,
 ```
